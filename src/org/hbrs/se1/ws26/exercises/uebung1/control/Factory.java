@@ -4,12 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Fabrik-Klasse (Entwurfsmuster: Factory bzw. Fabrikmethode / Simple Factory).
- *
- * Sie liegt im Package "control", also bei Translator und GermanTranslator,
- * damit die Client-Klasse (Package "view") die konkrete Klasse GermanTranslator
- * nie kennen muss. Die Fabrikmethode ist static, damit der Client auch die
- * Factory selbst nicht mit "new" erzeugen muss.
+ *Fabrik-Klasse (Entwurfsmuster: Factory bzw. Fabrikmethode / Simple Factory).
+ *Sie liegt im Package "control", also bei Translator und GermanTranslator,
+ *damit die Client-Klasse (Package "view") die konkrete Klasse GermanTranslator
+ *nie kennen muss. Die Fabrikmethode ist static, damit der Client auch die
+ *Factory selbst nicht mit "new" erzeugen muss.
  */
 public class Factory {
 
