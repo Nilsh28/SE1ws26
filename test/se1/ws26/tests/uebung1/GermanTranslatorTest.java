@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Blackbox-Test der Methode translateNumber (Klasse GermanTranslator).
- *
  * Aequivalenzklassen (Parameter "zahl"):
  *   AK1 (negativ): zahl < 1          Repraesentant: -5   Grenzwert: 0
  *   AK2 (positiv): 1 <= zahl <= 19   Repraesentant: 5    Grenzwerte: 1, 19
