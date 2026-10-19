@@ -1,11 +1,19 @@
 package org.hbrs.se1.ws26.exercises.uebung3;
 
+import org.hbrs.se1.ws26.exercises.uebung3.persistence.PersistenceException;
+import org.hbrs.se1.ws26.exercises.uebung3.persistence.PersistenceStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Container {
     private List<Member> members = new ArrayList<Member>();
     private static Container container;
+    private PersistenceStrategy <Member> persistenceStrategy;
+
+    private Container(){
+
+    }
 
 
     public void addMember (Member member) throws ContainerException {
@@ -33,15 +41,42 @@ public class Container {
         return false;
     }
 
-    public void dump(){
-        for (int i = 0; i < members.size(); i++) {
-            System.out.println(members.get(i).toString());
-        }
-    }
-
     public int size(){
         return  members.size();
     }
 
+    public static Container getInstance(){
+        if(container == null){
+            container =  new Container();
+        }
+        return container;
+    }
+
+    public void setPersistenceStrategy(PersistenceStrategy <Member> persistenceStrategy){
+        this.persistenceStrategy = persistenceStrategy;
+    }
+
+    public void store() throws PersistenceException {
+        if (persistenceStrategy == null) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine Strategie gesetzt.");
+        }
+        persistenceStrategy.save(members);
+
+    }
+
+    public void load() throws PersistenceException {
+        if (persistenceStrategy == null) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine Strategie gesetzt.");
+        }
+        members = persistenceStrategy.load();
+    }
+
+    public void deleteAllMembers(){
+        members.clear();
+    }
+
+    public List<Member> getCurrentList(){
+        return members;
+    }
 
 }

@@ -1,5 +1,7 @@
 package org.hbrs.se1.ws26.exercises.uebung3.persistence;
+import java.io.*;
 import java.util.List;
+
 
 public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
 
@@ -19,8 +21,12 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * https://www.digitalocean.com/community/tutorials/objectoutputstream-java-write-object-file
      * (Last Access: Oct, 12th 2026)
      */
-    public void save(List<E> member) throws PersistenceException  {
-
+    public void save(List<E> list) throws PersistenceException  {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(location))){
+            oos.writeObject(list);
+        } catch (IOException e){
+            throw new PersistenceException(PersistenceException.ExceptionType.ConnectionNotAvailable,e.getMessage());
+        }
     }
 
     @Override
@@ -30,6 +36,16 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Take also a look at the import statements above ;-!
      */
     public List<E> load() throws PersistenceException  {
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(location))){
+            Object obj = ois.readObject();
+            if(obj instanceof List){
+                return (List<E>) obj;
+            }
+            return null;
+        } catch(IOException | ClassNotFoundException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.ConnectionNotAvailable,e.getMessage());
+        }
+
         // Some Coding hints ;-)
 
         // ObjectInputStream ois = null;
@@ -50,6 +66,5 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
         // return newListe
 
         // and finally close the streams
-        return null;
     }
 }
