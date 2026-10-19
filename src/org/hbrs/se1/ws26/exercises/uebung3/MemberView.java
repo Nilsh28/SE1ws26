@@ -6,8 +6,8 @@ public class MemberView {
 
 
     public void dump(List<Member> liste){
-        for (int i = 0; i < liste.size(); i++) {
-            System.out.println(liste.get(i).toString());
+        for (Member member : liste) {
+            System.out.println(member.toString());
         }
     }
 }

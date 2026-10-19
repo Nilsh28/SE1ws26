@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Container {
-    private List<Member> members = new ArrayList<Member>();
+    private List<Member> members = new ArrayList<>();
     private static Container container;
     private PersistenceStrategy <Member> persistenceStrategy;
 
@@ -33,8 +33,8 @@ public class Container {
     }
 
     private boolean contains(Integer id) {
-        for (int i = 0; i < members.size(); i++) {
-            if(members.get(i).getID().equals(id)) {
+        for (Member member : members) {
+            if (member.getID().equals(id)) {
                 return true;
             }
         }
