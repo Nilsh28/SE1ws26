@@ -1,43 +1,62 @@
 package se1.ws26.tests.uebung3;
 
-import org.hbrs.se1.ws26.exercises.uebung2.ConcreteMember;
-import org.hbrs.se1.ws26.exercises.uebung2.Container;
-import org.hbrs.se1.ws26.exercises.uebung2.ContainerException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
-public class ContainerTest {
-
-    private Container container;
-    private ConcreteMember member1;
-    private ConcreteMember member2;
+class ContainerTest {
 
     @BeforeEach
-    public void setUp() {
-        container = new Container();
-        member1 = new ConcreteMember(1);
-        member2 = new ConcreteMember(2);
+    void setUp() {
+        // Hier muss der Container einmalig als Singleton instanziiert werden.
     }
 
     @Test
-    public void testAddMember() throws ContainerException {
+    void testMongoDBNotImplementedSolution() {
+        // Set a strategy, which has not been implemented
+        // container.setPersistenceStrategie( new PersistenceStrategyMongoDB<Member>() );
 
-        assertEquals(0, container.size());
-        container.addMember(member1);
-        assertEquals(1, container.size());
-        container.addMember(member2);
-        assertEquals(2, container.size());
-        String ergebnis = container.deleteMember(1);
-        assertEquals("Der Member wurde erfolgreich gelöscht", ergebnis);
-        assertEquals(1, container.size());
-        String ergebnis2 = container.deleteMember(99);
-        assertEquals("Member nicht gefunden und daher nicht gelöscht", ergebnis2);
-        assertEquals(1, container.size());
-        container.deleteMember(2);
-        assertEquals(0, container.size());
+        // Testing store
+        // Hinweis: Beim Aufruf der Methoden store() oder load() muss eine Exception vom Typ
+        // PersistenceException zurückgegeben werden. Der ExceptionType lautet ImplementationNotAvailable
+        // Die Message (abrufbar mit der Methode e.getMessage() ) muss einen eindeutigen Text haben, z.B.:
+        // assertEquals( e.getMessage() , "MongoDB is not implemented!"  );
+    }
+
+    @Test
+    void testNoStrategeySet() {
+        //
+            // container.setPersistenceStrategie(null);
+            // container.store();
+        // } catch (PersistenceException e) {
+            // Bitte auch hier die Message und den ExceptionType prüfen.
+        // }
+    }
+
+    @Test
+    void testWrongLocationOfFile() {
+        // try {
+           //  PersistenceStrategyStream<Member> strat = new PersistenceStrategyStream<Member>();
+            // FileStreams do not like directories, so try this out ;-)
+            // strat.setLocation("/Users/saschaalda/tmp");
+            // container.setPersistenceStrategie( strat );
+            // container.store();
+
+        // } catch (PersistenceException e) {
+            // Auch hier diverse Assertions bringen, um die Nachricht und den ExceptionType zu testen.
+        // }
+    }
+
+    @Test
+    void testStoreDeleteAndLoad() {
+        // Testen Sie folgenden RoundTrip:
+        // 1. Lösche alle Member-Objekte (Sicher ist sicher! Dazu die Methode deleteAllMember implementieren!)
+        // 2. Setzen der Strategie
+        // 3. Hinzufügen eines Member-Objekts
+        // 4. Abspeichern
+        // 5. Löschen des Member-Objekts
+        // 6. Laden
+        // Die Zustandsänderungen mittels der size() bitte stets testen!
     }
 
 }
